@@ -1,0 +1,13 @@
+# Core framework
+robotframework
+
+# Web UI testing (Playwright under the hood).
+# Needs Node.js. After installing, run:  rfbrowser init chromium
+robotframework-browser
+
+# REST API testing
+robotframework-requests
+
+# TODO: after your first successful run, pin exact versions so that the
+# project builds the same way every time. Run `pip list`, find the three
+# packages above and write them as e.g.  robotframework==X.Y.Z

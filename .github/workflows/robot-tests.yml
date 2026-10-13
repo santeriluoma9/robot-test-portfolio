@@ -1,0 +1,42 @@
+name: Robot Framework tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:   # lets you start a run by hand from the Actions tab
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Set up Node.js (required by the Browser library)
+        uses: actions/setup-node@v6
+        with:
+          node-version: "lts/*"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install Chromium for the Browser library
+        run: rfbrowser init chromium
+
+      - name: Run tests
+        run: robot --outputdir results tests/
+
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: robot-results
+          path: results/

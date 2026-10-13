@@ -1,0 +1,19 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Robot Framework output (reports are published by CI instead)
+results/
+output.xml
+log.html
+report.html
+playwright-log.txt
+browser/
+
+# Node (created by the Browser library)
+node_modules/
+
+# Editors
+.vscode/
+.idea/
