@@ -45,3 +45,24 @@ Create Post Returns 201 And Echoes Data
     Status Should Be    201    ${response}
     Should Be Equal    ${response.json()}[title]    My test title
     Should Be Equal As Integers    ${response.json()}[id]    101
+
+Filter Posts By User Returns Only That User's Posts
+    [Documentation]    GET /posts?userId=1 returns only posts written by user 1.
+    &{params}=    Create Dictionary    userId=1
+    ${response}=    GET On Session    jsonplaceholder    /posts    params=${params}
+    Status Should Be    200    ${response}
+    ${posts}=    Set Variable    ${response.json()}
+    Length Should Be    ${posts}    10
+    FOR    ${post}    IN    @{posts}
+        Should Be Equal As Integers    ${post}[userId]    1
+    END
+
+Get Comments For Post Returns Only That Post's Comments
+    [Documentation]    GET /posts/1/comments returns only comments for post 1.
+    ${response}=    GET On Session    jsonplaceholder    /posts/1/comments
+    Status Should Be    200    ${response}
+    ${comments}=    Set Variable    ${response.json()}
+    Length Should Be    ${comments}    5
+    FOR    ${comment}    IN    @{comments}
+        Should Be Equal As Integers    ${comment}[postId]    1
+    END
