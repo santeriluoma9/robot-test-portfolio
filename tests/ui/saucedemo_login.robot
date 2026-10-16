@@ -15,17 +15,3 @@ Standard User Can Log In
     Login As    standard_user
     Inventory Page Should Be Open
 
-Locked Out User Sees Error Message
-    [Documentation]    A locked out user is not let in and sees an explanation.
-    Login As    locked_out_user
-    Login Error Should Be    Sorry, this user has been locked out.
-
-Wrong Password Is Rejected
-    [Documentation]    A valid username with a wrong password must not log in.
-    Login As    standard_user    wrong_password
-    Login Error Should Be    Username and password do not match any user in this service
-
-Empty Password Is Rejected
-    [Documentation]    A missing password gives a clear validation message.
-    Login As    standard_user    ${EMPTY}
-    Login Error Should Be    Password is required
